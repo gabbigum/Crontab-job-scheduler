@@ -1,0 +1,44 @@
+#!/bin/bash
+
+#title                    :menu.sh
+#description              :This script is the for usere interaction .
+#author		                :Dávid Gábor Uzonyi(40429825)
+#date                     :2020.10.05
+#version                  :0.1
+#Made for		              :CSN08116 2020, coursework
+#contributors(1)          :Markus Meresma (40439107)
+#contributors(2)          :Gabriel Saliev (40441590)
+#
+
+#The menu function is the first interaction with the user.
+#The function calls the corresponding task.
+function menu () {
+numchoice=1
+while [ $numchoice != 0 ]; do
+ echo -n "
+ 1. Display crontab jobs
+ 2. Insert a job
+ 3. Edit a job
+ 4. Remove a job
+ 5. Remove all jobs
+ 0. Exit
+ enter choice [1 | 2 | 3 | 4 | 5 | 0]: "
+ read numchoice
+ case $numchoice in
+        "1" ) echo  "Displaying crontab jobs"
+        break;;# call displaying cron function ....
+        "2" )  echo  "Insert a job"
+        break;;# call inser job  function ....
+        "3" )  echo  "Edit a job"
+        break;;
+        "4" )  echo  "Remove all job"
+        break;;
+      "5" )  echo  "Displaying crontab jobs"
+        break;;
+       "0" ) break ;;
+        * ) echo -n "You entered an incorrect option. Please try again." ;;
+ esac
+done
+}
+
+menu
