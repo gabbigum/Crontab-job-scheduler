@@ -1,25 +1,26 @@
 #!/bin/bash
 
 #title                    :menu.sh
-#description              :This script is the for usere interaction .
-#author		          :Dávid Gábor Uzonyi(40429825)
+#description              :This script for usere interaction 
+#author		              :Dávid Gábor Uzonyi(40429825)
 #date                     :2020.10.05
 #version                  :0.1
-#Made for		  :CSN08116 2020, coursework
+#Made for		          :CSN08116 2020, coursework
 #contributors(1)          :Markus Meresma (40439107)
 #contributors(2)          :Gabriel Saliev (40441590)
 #
 
-#The menu function is the first interaction with the user.
-#The function calls the corresponding task.
 
-
+#function definitions
 display_job_wd+=`pwd`"/displayjob"
 insert_job_wd=`pwd`"/insertjob"
 edit_job_wd=`pwd`"/editjob"
 remove_job_wd=`pwd`"/removejob"
 remove_all_jobs_wd=`pwd`"/removealljobs"
 
+
+#The menu function is the first interaction with the user.
+#The function calls the corresponding task.
 function menu () {
 numchoice=1
 while [ $numchoice != 0 ]; do
@@ -38,15 +39,15 @@ while [ $numchoice != 0 ]; do
      "2" ) source $insert_job_wd
            break;;# call inser job  function ....
      "3" ) source $edit_job_wd
-           break;;
+           break;;#escapes loop
      "4" ) source $remove_job_wd
-           break;;
+           break;;#escapes loop
      "5" ) source $remove_all_jobs_wd
-	   break;;
-     "0" ) break ;;
+	   break;;#escapes loop
+     "0" ) break ;;#escapes loop
      * ) echo -n "You entered an incorrect option. Please try again." ;;
- esac
-done
-}
+ esac#end of case
+done #end of while loop
+}#end of menu function
 
 menu
