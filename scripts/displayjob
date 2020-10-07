@@ -1,0 +1,13 @@
+#!/bin/sh
+
+#title                    :displayjobs.sh
+#description              :This script is for displaying crontab jobs .
+#author		          :Gabriel Saliev (40441590)
+#date                     :2020.10.05
+#version                  :0.1
+#Made for		              :CSN08116 2020, coursework
+#contributors(1)          :Markus Meresma (40439107)
+#contributors(2)          :Dávid Gábor Uzonyi(40429825)
+#
+
+echo "Displaying job"
