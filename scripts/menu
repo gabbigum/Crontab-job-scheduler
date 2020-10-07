@@ -13,8 +13,12 @@
 #The menu function is the first interaction with the user.
 #The function calls the corresponding task.
 
-display_job_wd+=`pwd`
-display_job_wd+="/displayjob"
+
+display_job_wd+=`pwd`"/displayjob"
+insert_job_wd=`pwd`"/insertjob"
+edit_job_wd=`pwd`"/editjob"
+remove_job_wd=`pwd`"/removejob"
+remove_all_jobs_wd=`pwd`"/removealljobs"
 
 function menu () {
 numchoice=1
@@ -29,17 +33,16 @@ while [ $numchoice != 0 ]; do
  enter choice [1 | 2 | 3 | 4 | 5 | 0]: "
  read numchoice
  case $numchoice in
-     "1" ) echo  "Displaying crontab jobs"
-	   source $display_job_wd
+     "1" ) source $display_job_wd
            break;;# call displaying cron function ....
-     "2" )  echo  "Insert a job"
-            break;;# call inser job  function ....
-     "3" )  echo  "Edit a job"
-            break;;
-     "4" )  echo  "Remove all job"
-            break;;
-     "5" )  echo  "Displaying crontab jobs"
-            break;;
+     "2" ) source $insert_job_wd
+           break;;# call inser job  function ....
+     "3" ) source $edit_job_wd
+           break;;
+     "4" ) source $remove_job_wd
+           break;;
+     "5" ) source $remove_all_jobs_wd
+	   break;;
      "0" ) break ;;
      * ) echo -n "You entered an incorrect option. Please try again." ;;
  esac
