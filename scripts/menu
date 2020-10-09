@@ -46,8 +46,8 @@ while [ $numchoice != 0 ]; do
 	   break;;#escapes loop
      "0" ) break ;;#escapes loop
      * ) echo -n "You entered an incorrect option. Please try again." ;;
- esac#end of case
+ esac #end of case
 done #end of while loop
-}#end of menu function
+} #end of menu function
 
 menu
