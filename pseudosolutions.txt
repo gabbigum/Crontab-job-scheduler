@@ -1,0 +1,8 @@
+insert job -- write to the crontab file user specified parameters -- make it more user friendly e.g. (select insert job from the menu and ask for minute, hour, day, month and year) then enter name of the scheduled script ( make validation if the script and directory exists) and append all that information to the crontab file
+
+remove job -- parse the crontab file, use token to find the row of the name of the job and delete the whole row
+
+
+remove all jobs -- delete everything in the crontab file
+
+
