@@ -1,0 +1,41 @@
+user interaction for insert job
+
+Disclaimer:
+Some questions might  not be on the list.
+different user interaction is possible
+
+(1) Would you like to set the minutes for the job?
+
+    recurring intervals
+    on set times
+
+
+(2) set the hours for the job
+
+    recurring intervals
+    on set time
+
+
+(3)Monthly/weekly/set day
+
+    recurring intervals
+    on set time
+
+
+(4) would you like an other set time
+
+    if yes <start form the bigining> go to (1)
+    if no <go to cron command to exectu> go to (5)
+
+
+
+
+(5) Welcome to the cron's command/script installation utility
+     [1] Use a system command
+      [2] Use your own/custom script
+                                      ---->Enter the command you want to execute
+                                                                           ---->enter a job ID
+
+
+
+
