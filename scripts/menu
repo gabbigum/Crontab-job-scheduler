@@ -24,14 +24,35 @@ remove_all_jobs_wd=`pwd`"/removealljobs"
 function menu () {
 numchoice=1
 while [ $numchoice != 0 ]; do
- echo -n "
+clear	
+
+echo "
+ ###  ### ###    ###   :####:  ######:    .####.   ###   ## 
+ ###  ### .##:  :##.   ######  #######    ######   ###   ## 
+ ###::###  ###  ###  :##:  .#  ##   :##  :##  ##:  ###:  ## 
+ ###  ###   ##::##   ##        ##    ##  ##:  :##  ####  ## 
+ ## ## ##    ####    ##.       ##   :##  ##    ##  ##:#: ## 
+ ##:##:##    ####    ##        #######:  ##    ##  ## ## ## 
+ ##.##.##    :##:    ##        ######    ##    ##  ## ## ## 
+ ## ## ##     ##     ##.       ##   ##.  ##    ##  ## :#:## 
+ ##    ##     ##     ##        ##   ##   ##:  :##  ##  #### 
+ ##    ##     ##     :##:  .#  ##   :##  :##  ##:  ##  :### 
+ ##    ##     ##       ######  ##    ##:  ######   ##   ### 
+ ##    ##     ##       :####:  ##    ###  .####.   ##   ### 
+
+"
+
+echo -n "
+Please select an option from the menu: 
+
  1. Display crontab jobs
  2. Insert a job
  3. Edit a job
  4. Remove a job
  5. Remove all jobs
  0. Exit
- enter choice [1 | 2 | 3 | 4 | 5 | 0]: "
+ 
+ Enter choice [1 | 2 | 3 | 4 | 5 | 0]: "
  read numchoice
  case $numchoice in
      "1" ) source $display_job_wd
