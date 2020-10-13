@@ -8,8 +8,26 @@
 #Made for		          :CSN08116 2020, coursework
 #contributors(1)          :Markus Meresma (40439107)
 #contributors(2)          :Dávid Gábor Uzonyi(40429825)
-#
 
- 
+#Save crontab -l output in a variable
+file=$(crontab -l)
 
-echo "Displaying job"
+while read -r line
+do
+	echo $line
+
+done < "$file"
+
+read -p "Type 'exit' to return to menu: " input
+
+case $input in
+	"exit")
+		source `pwd`"/menu" 
+		;;
+	*)
+		exit 0
+		;;
+	esac
+
+
+
