@@ -1,5 +1,60 @@
 #!/bin/sh
 
-# add later
+#title                    :insertjob.sh                                   
+#description              :
+#author                   :Gabriel Saliev (40441590)
+#date                     :2020.10.15                                                    #version                  :0.1
+#Made for                 :CSN08116 2020, coursework                             
+#contributors(1)          :Markus Meresma (40439107)                                  
+#contributors(2)          :Dávid Gábor Uzonyi(40429825)
 
-echo "Inserting a job"
+
+echo "
+Please insert a job with specified directory(1) or write task(2).
+     
+examples:
+     (1) /home/downloads/.../script_one
+     (2) echo hello > /tmp/hello
+input:"
+read job_input
+
+#do validations, set constraints
+
+echo "Please enter hour (0-24):  "
+read hour
+
+echo "Please enter minutes after hour (0-60): "
+read minutes
+
+echo "Please enter day of the week (1-7) (* for *):"
+read day_of_week
+
+echo "Please enter day of month (1-30) (* for *): "
+read day_of_month
+
+echo "Please enter month of year (1-12) (* for *):"
+read month_of_year
+
+#if day of the week is specified
+#make day_of_year and day_of_month stars * *
+
+job_format="$minutes $hour $day_of_month $month_of_year $day_of_week $job_input"
+
+(crontab -l ; echo $job_format)| crontab -
+
+echo "Crontab created successfully!"
+
+#make this function in separate script
+read -p "Type 'exit' to return to menu: " input
+
+case $input in
+    "exit")
+	source `pwd`"/menu"
+	;;
+    *)
+	exit 0
+	;;
+esac
+
+
+
