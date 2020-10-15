@@ -14,20 +14,23 @@ file=$(crontab -l)
 
 while read -r line
 do
-	echo $line
-
+    echo $line
+    
 done < "$file"
 
+#make this function in separate script
 read -p "Type 'exit' to return to menu: " input
 
 case $input in
-	"exit")
-		source `pwd`"/menu" 
-		;;
-	*)
-		exit 0
-		;;
-	esac
+    "exit")
+	source `pwd`"/menu" 
+	;;
+    *)
+	exit 0
+	;;
+esac
+
+#Display job bug, when you run ./menu and select 1.Display crontab jobs it runs well, after you exit to the menu and run it for second time it throws error.
 
 
 
