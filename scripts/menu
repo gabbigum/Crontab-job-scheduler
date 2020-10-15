@@ -56,19 +56,19 @@ Please select an option from the menu:
  read numchoice
  case $numchoice in
      "1" ) source $display_job_wd
-           break;;# call displaying cron function ....
+           break;;
      "2" ) source $insert_job_wd
-           break;;# call inser job  function ....
+           break;;
      "3" ) source $edit_job_wd
-           break;;#escapes loop
+           break;;
      "4" ) source $remove_job_wd
-           break;;#escapes loop
+           break;;
      "5" ) source $remove_all_jobs_wd
-	   break;;#escapes loop
-     "0" ) break ;;#escapes loop
+	   break;;
+     "0" ) break;;
      * ) echo -n "You entered an incorrect option. Please try again." ;;
- esac #end of case
-done #end of while loop
-} #end of menu function
+ esac
+done 
+} 
 
 menu
