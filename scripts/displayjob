@@ -14,13 +14,17 @@ file=$(crontab -l)
 
 while read -r line
 do
+
 	echo $line
 #	grep -v "#" $line
+
 done < "$file"
 
+#make this function in separate script
 read -p "Type 'exit' to return to menu: " input
 
 case $input in
+
 	"exit")
 		clear
 		source `pwd`"/menu" 
@@ -29,6 +33,9 @@ case $input in
 		exit 0
 		;;
 	esac
+
+
+
 
 
 

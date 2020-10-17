@@ -1,3 +1,46 @@
-#!/bin/sh
+#!/bin/bash
 
-echo "Removing all jobs"
+#title                    :menu.sh
+#description              :This script for remove all jobs  
+#author		              :Dávid Gábor Uzonyi(40429825)
+#date                     :2020.10.05
+#version                  :0.1
+#Made for		          :CSN08116 2020, coursework
+#contributors(1)          :Markus Meresma (40439107)
+#contributors(2)          :Gabriel Saliev (40441590)
+#
+
+function demo () {
+  clear #clera the terminal 
+  echo  -e "Are you sure you want to REMOVE ALL THE JOBS?" 
+  echo -n "Enter yes or no:"
+
+  read var1 #read the user input
+}
+
+
+while true; do #while loop for error handling
+  demo
+
+ if [ $var1 == "yes" ] 
+ then
+   	printf "All jobs will  be removed"
+    crontab -r #removes all crontab jobs
+ break #escapes loop
+
+ elif [  $var1 == "no" ]; 
+    then
+   	printf "Jobs will not be removed"
+ break #escapes loop
+
+ else #else statment for not valid input
+   clear
+   printf "This is not a valid option %s\n" "$var1"
+   echo
+
+  fi
+done
+
+exit 0
+
+
