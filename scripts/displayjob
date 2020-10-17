@@ -1,12 +1,12 @@
 #!/bin/sh
 
 #title                    :displayjobs.sh
-#description              :This script is for displaying crontab jobs .
-#author		              :Gabriel Saliev (40441590)
+#description              :This script is for displaying crontab jobs
+#author		          :Markus Meresma (40439107)
 #date                     :2020.10.05
 #version                  :0.1
-#Made for		          :CSN08116 2020, coursework
-#contributors(1)          :Markus Meresma (40439107)
+#Made for		  :CSN08116 2020, coursework
+#contributors(1)          :Gabriel Saliev (40441590)
 #contributors(2)          :Dávid Gábor Uzonyi(40429825)
 
 #Save crontab -l output in a variable
@@ -14,23 +14,28 @@ file=$(crontab -l)
 
 while read -r line
 do
-    echo $line
-    
+
+	echo $line
+#	grep -v "#" $line
+
 done < "$file"
 
 #make this function in separate script
 read -p "Type 'exit' to return to menu: " input
 
 case $input in
-    "exit")
-	source `pwd`"/menu" 
-	;;
-    *)
-	exit 0
-	;;
-esac
 
-#Display job bug, when you run ./menu and select 1.Display crontab jobs it runs well, after you exit to the menu and run it for second time it throws error.
+	"exit")
+		clear
+		source `pwd`"/menu" 
+		;;
+	*)
+		exit 0
+		;;
+	esac
+
+
+
 
 
 
