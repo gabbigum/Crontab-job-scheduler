@@ -12,7 +12,7 @@
 
 
 #function definitions
-display_job_wd+=`pwd`"/displayjob"
+display_job_wd=`pwd`"/displayjob"
 insert_job_wd=`pwd`"/insertjob"
 edit_job_wd=`pwd`"/editjob"
 remove_job_wd=`pwd`"/removejob"
