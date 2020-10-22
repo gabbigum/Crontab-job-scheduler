@@ -9,6 +9,8 @@
 #contributors(1)          :Gabriel Saliev (40441590)
 #contributors(2)          :Dávid Gábor Uzonyi(40429825)
 
+function exit_to_main_menu(){
+
 echo ""
 
 while true
@@ -30,3 +32,7 @@ do
 			;;
         	esac
 done
+}
+#should be called from different script
+
+exit_to_main_menu
