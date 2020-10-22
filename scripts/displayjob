@@ -2,21 +2,19 @@
 
 #title                    :displayjobs.sh
 #description              :This script is for displaying crontab jobs
-#author		          :Markus Meresma (40439107)
+#author		                :Markus Meresma (40439107)
 #date                     :2020.10.05
 #version                  :0.1
-#Made for		  :CSN08116 2020, coursework
+#Made for		              :CSN08116 2020, coursework
 #contributors(1)          :Gabriel Saliev (40441590)
 #contributors(2)          :Dávid Gábor Uzonyi(40429825)
 
 #clear terminal
 clear
 
+
 #skip lines with comments and display cronjobs
 crontab -l | grep -v "^#"
 
 #execute return to menu script
 source `pwd`"/return"
-
-
-
