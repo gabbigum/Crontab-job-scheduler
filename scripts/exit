@@ -34,5 +34,4 @@ do
 done
 }
 #should be called from different script
-
 exit_to_main_menu

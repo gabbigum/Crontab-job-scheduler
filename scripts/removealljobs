@@ -18,7 +18,7 @@ function remove_all_jobs () {
   read user_input #read the user input
 }
 
-
+function input_valdtion(){
 while true; do #while loop for error handling
   remove_all_jobs
 
@@ -40,6 +40,10 @@ while true; do #while loop for error handling
 
   fi
 done
+}
+
+input_valdtion
+
 
 #execute return to menu script
 source `pwd`"/exit"

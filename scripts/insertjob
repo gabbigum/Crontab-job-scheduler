@@ -2,13 +2,14 @@
 
 #title                    :insertjob.sh                                   
 #description              :
-#author                   :Gabriel Saliev (40441590)
-#date                     :2020.10.15                                                    #version                  :0.1
+#author                   :Gabriel Saliev (40441590),Dávid Gábor Uzonyi(40429825)
+#date                     :2020.10.15                                                    
+#version                  :0.1
 #Made for                 :CSN08116 2020, coursework                             
 #contributors(1)          :Markus Meresma (40439107)                                  
-#contributors(2)          :Dávid Gábor Uzonyi(40429825)
 
-function insert_jobs(){
+
+
 echo "
 Please insert a job with specified directory(1) or write task(2).
      
@@ -16,24 +17,111 @@ examples:
      (1) /home/downloads/.../script_one
      (2) echo hello > /tmp/hello
 input:"
+
+#validation  
 read job_input
 
-#do validations, set constraints
 
-echo "Please enter hour (0-24):  "
-read hour
-
-echo "Please enter minutes after hour (0-60): "
-read minutes
-
-echo "Please enter day of the week (1-7) (* for *):"
-read day_of_week
-
-echo "Please enter day of month (1-30) (* for *): "
-read day_of_month
-
-echo "Please enter month of year (1-12) (* for *):"
+##month
+function get_month () {
+ 
+echo -n "Please enter month of year (1-12) (* for *):"
 read month_of_year
+validat_month
+}
+  
+function validat_month(){
+if  [ $month_of_year -gt 0 ]  &&  [ $month_of_year -lt 13 ]
+then
+	echo "all good , delet later!!!"
+else
+	printf "The number is not between 1 and 13"
+	echo
+	get_day_of_month
+fi
+}
+
+###day of the week
+function get_day () {
+ 
+echo -n "Please enter day of the week (1-7) (* for *):"
+read day_of_week
+valaidate_day
+}
+  
+function valaidate_day(){
+if  [ $day_of_week -gt 0 ]  &&  [ $day_of_week -lt 8 ]
+then
+	get_month
+else
+	printf "The number is not between 1 and 7"
+	echo
+	get_day
+fi
+}
+
+##day of the month
+function get_day_of_month () {
+ 
+echo -n "Please enter day of month (1-30) (* for *): "
+read day_of_month
+validat_day_of_month
+}
+  
+function validat_day_of_month(){
+if  [ $day_of_month -gt 0 ]  &&  [ $day_of_month -lt 32 ]
+then
+	get_day
+else
+	printf "The number is not between 1 and 31"
+	echo
+	get_day_of_month
+fi
+}
+
+
+
+###Hours
+function get_hour () {
+  echo -n "Please enter hour (0-24):  "  
+  read hour #read the user input
+  valaidate_hour
+}
+  
+function valaidate_hour(){
+if  [ $hour -gt 0 ]  &&  [ $hour -lt 25 ]
+then
+	get_day_of_month
+else
+	printf "The number is not between 1 and 24"
+	echo
+	get_hour
+fi
+}
+
+
+####Minutes
+function get_minuts () {
+  echo -n "Please enter minutes after hour (0-60): "
+  read minutes
+  valaidate_minuts
+}
+
+function valaidate_minuts(){
+if  [ $minutes -gt 0 ]  &&  [ $minutes -lt 61 ]
+then
+	get_hour
+else
+	printf "The number is not between 1 and 60"
+	echo
+	get_minuts
+fi
+}
+
+
+get_minuts
+
+
 
 #if day of the week is specified
 #make day_of_year and day_of_month stars * *
@@ -45,7 +133,5 @@ job_format="$minutes $hour $day_of_month $month_of_year $day_of_week $job_input"
 echo "Crontab created successfully!"
 
 source `pwd`"/exit"
-}
 
-#should be called from different script
-insert_jobs
+
