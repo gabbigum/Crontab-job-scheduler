@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 #title                    :insertjob.sh                                   
 #description              :
@@ -44,17 +44,7 @@ job_format="$minutes $hour $day_of_month $month_of_year $day_of_week $job_input"
 
 echo "Crontab created successfully!"
 
-#make this function in separate script
-read -p "Type 'exit' to return to menu: " input
-
-case $input in
-    "exit")
-	source `pwd`"/menu"
-	;;
-    *)
-	exit 0
-	;;
-esac
+source `pwd`"/exit"
 
 
 

@@ -11,7 +11,7 @@
 #
 
 function demo () {
-  clear #clera the terminal 
+  clear #clear the terminal 
   echo  -e "Are you sure you want to REMOVE ALL THE JOBS?" 
   echo -n "Enter yes or no:"
 
