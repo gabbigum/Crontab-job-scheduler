@@ -1,0 +1,22 @@
+#!/bin/sh
+
+function to_main_menu(){
+echo
+read -p "Type 'exit' to return to menu: " input
+
+case $input in
+        "exit")
+		#clear terminal
+                clear
+		#return to main menu
+                source `pwd`"/menu"
+                ;;
+        *)
+		#terminate the script
+                exit 0
+                ;;
+        esac
+ }
+#should be called from difernt script
+ to_main_menu
+

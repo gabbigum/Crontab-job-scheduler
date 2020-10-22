@@ -9,7 +9,7 @@
 #contributors(1)          :Gabriel Saliev (40441590)
 #contributors(2)          :Dávid Gábor Uzonyi(40429825)
 
-
+function remove_a_job(){
 #clear the terminal
 clear 
 
@@ -55,4 +55,6 @@ done
 
 #use return script
 source `pwd`"/exit"
-
+}
+#should be called from different script
+remove_a_job

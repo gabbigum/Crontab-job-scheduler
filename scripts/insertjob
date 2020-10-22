@@ -8,7 +8,7 @@
 #contributors(1)          :Markus Meresma (40439107)                                  
 #contributors(2)          :Dávid Gábor Uzonyi(40429825)
 
-
+function insert_jobs(){
 echo "
 Please insert a job with specified directory(1) or write task(2).
      
@@ -45,6 +45,7 @@ job_format="$minutes $hour $day_of_month $month_of_year $day_of_week $job_input"
 echo "Crontab created successfully!"
 
 source `pwd`"/exit"
+}
 
-
-
+#should be called from different script
+insert_jobs
