@@ -22,104 +22,87 @@ input:"
 read job_input
 
 
-##month
-function get_month () {
+function valadtion(){
+
+
+function user_interaction  () {
  
-echo -n "Please enter month of year (1-12) (* for not specified):"
-read month_of_year
-validate_month
+echo -n $Text
+read user_input
+validat
 }
   
-function validate_month(){
-if  [ $month_of_year -gt 0 ]  &&  [ $month_of_year -lt 13 ] 
+function validat(){
+if  [ $user_input -gt $greater_than ]  &&  [ $user_input -lt $Less_than ]
 then
-	echo "all good , delete later!!!"
+	echo "all good , delet later!!!"
 else
-	printf "The number is not between 1 and 13"
+	printf "The number is not Greater than $greater_than or not Less than $Less_than"
 	echo
-	get_day_of_month
-fi
-}
-
-###day of the week
-function get_day () {
- 
-echo -n "Please enter day of the week (1-7) (* for not specified):"
-read day_of_week
-valaidate_day
-}
-  
-function valaidate_day(){
-if  [ $day_of_week -gt 0 ]  &&  [ $day_of_week -lt 8 ]
-then
-	get_month
-else
-	printf "The number is not between 1 and 7"
-	echo
-	get_day
-fi
-}
-
-##day of the month
-function get_day_of_month () {
- 
-echo -n "Please enter day of month (1-30) (* for not specified): "
-read day_of_month
-validate_day_of_month
-}
-  
-function validate_day_of_month(){
-if  [ $day_of_month -gt 0 ]  &&  [ $day_of_month -lt 32 ]
-then
-	get_day
-else
-	printf "The number is not between 1 and 31"
-	echo
-	get_day_of_month
+	user_interaction
 fi
 }
 
 
+#call user_interaction function 
+user_interaction
 
-###Hours
-function get_hour () {
-  echo -n "Please enter hour (0-24):  "  
-  read hour #read the user input
-  valaidate_hour
-}
-  
-function valaidate_hour(){
-if  [ $hour -gt 0 ]  &&  [ $hour -lt 25 ]
-then
-	get_day_of_month
-else
-	printf "The number is not between 1 and 24"
-	echo
-	get_hour
-fi
 }
 
 
-####Minutes
-function get_minutes () {
-  echo -n "Please enter minutes after hour (0-60): "
-  read minutes
-  valaidate_minutes
-}
 
-function valaidate_minutes(){
-if  [ $minutes -gt 0 ]  &&  [ $minutes -lt 61 ]
-then
-	get_hour
-else
-	printf "The number is not between 1 and 60"
-	echo
-	get_minutes
-fi
-}
+#Get the minutes from the user
+#Passing parameters to the function
+Text="Please enter minutes after hour (0-60): "
+greater_than=0
+Less_than=61
+#call valadtion function
+valadtion
+minutes=$user_input
 
 
-get_minutes
+#Get the hour from the user
+#Passing parameters to the function
+Text="Please enter hour (0-24):  "
+greater_than=0
+Less_than=25
+#call valadtion function
+valadtion 
+hour=$user_input
+
+
+
+#Get the day of month from the user
+#Passing parameters to the function
+Text="Please enter day of month (1-30) (* for not specified): "
+greater_than=0
+Less_than=32
+#call valadtion function
+valadtion
+day=$user_input
+
+
+
+#Get the day of month from the user
+#Passing parameters to the function
+Text="Please enter day of the week (1-7) (* for not specified):"
+greater_than=0
+Less_than=8
+#call valadtion function
+valadtion
+day_of_week=$user_input
+
+
+
+
+#Get the day of month from the user
+#Passing parameters to the function
+Text="Please enter month of year (1-12) (* for not specified):"
+greater_than=0
+Less_than=13
+#call valadtion function
+valadtion 
+month_of_year=$user_input
 
 
 
