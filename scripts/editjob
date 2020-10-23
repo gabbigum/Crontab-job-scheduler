@@ -1,3 +1,39 @@
 #!/bin/sh
 
-echo "Editing jobs"
+#title                    :menu.sh
+#description              :This script is for editing jobs via friendlier interface 
+#author		          :Gabriel Saliev (40441590)
+#date                     :2020.10.05
+#version                  :0.1
+#Made for		  :CSN08116 2020, coursework
+#contributors(1)          :Markus Meresma (40439107)
+#contributors(2)          :Dávid Gábor Uzonyi(40429825) 
+
+
+#Select job to edit
+#Save job parameters to a variable
+#Ask user which parameters he wants to edit
+#Create new string with the edited parameters
+#Search and overwrite the cronjob in the crontab file
+
+file=$(crontab -l)
+
+while true;
+do
+    #display jobs
+    #source `pwd`"/displayjob"
+    
+    #if cronjob !exist break;;
+    echo "Enter a job to edit: "
+    read job_str
+
+    job_exist=grep job_str $file
+    if [ $job_exist == false ]
+    then
+	break;;
+    fi
+    
+done
+
+source `pwd`"/exit"    
+    
