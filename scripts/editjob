@@ -9,29 +9,60 @@
 #contributors(2)          :Dávid Gábor Uzonyi(40429825) 
 
 
-#Select job to edit
-#Save job parameters to a variable
-#Ask user which parameters he wants to edit
+#1.Select job to edit
+#2.Save job parameters to a variable
+#3.Ask user which parameters he wants to edit
 #Create new string with the edited parameters
-#Search and overwrite the cronjob in the crontab file
+#Search and delete the cronjob in the crontab file
+#Then insert the newly created job 
 
 file=$(crontab -l)
 
-while true;
-do
-    #display jobs
-    #source `pwd`"/displayjob"
-    
-    #if cronjob !exist break;;
-    echo "Enter a job to edit: "
-    read job_str
+function main () {
 
-    job_exist=grep job_str $file
-    if [ $job_exist == false ]
+    while true;
+    do
+	#display jobs
+	source `pwd`"/displayjob"
+
+	get_select_job
+
+	
+    done
+
+}
+function get_select_job()
+{
+    echo "Select one of the jobs displayed (write it down): "
+    read select_job_input
+    validate_select_job
+}
+
+
+function validate_select_job() {
+    #if selected job does not exist in crontab file
+    #display error message
+
+    job_exist=grep $select_job_input $file
+    if ( $job_exist == false ]
     then
-	break;;
+	echo "This job does not exist."
+	get_select_job
+    else
+	#2.save select job in a var
+	saved_job=$select_job_input
     fi
-    
-done
+}
+
+function edit_saved_job(){
+    # call the functions from insert job
+    # 3.ask user which parameters he wants to edit
+    # edit job name?
+    # minutes
+    # hour
+    # day of month
+    # month of year
+    # day of week
+}
 
 source `pwd`"/exit"    
