@@ -25,15 +25,15 @@ read job_input
 ##month
 function get_month () {
  
-echo -n "Please enter month of year (1-12) (* for *):"
+echo -n "Please enter month of year (1-12) (* for not specified):"
 read month_of_year
-validat_month
+validate_month
 }
   
-function validat_month(){
-if  [ $month_of_year -gt 0 ]  &&  [ $month_of_year -lt 13 ]
+function validate_month(){
+if  [ $month_of_year -gt 0 ]  &&  [ $month_of_year -lt 13 ] 
 then
-	echo "all good , delet later!!!"
+	echo "all good , delete later!!!"
 else
 	printf "The number is not between 1 and 13"
 	echo
@@ -44,7 +44,7 @@ fi
 ###day of the week
 function get_day () {
  
-echo -n "Please enter day of the week (1-7) (* for *):"
+echo -n "Please enter day of the week (1-7) (* for not specified):"
 read day_of_week
 valaidate_day
 }
@@ -63,12 +63,12 @@ fi
 ##day of the month
 function get_day_of_month () {
  
-echo -n "Please enter day of month (1-30) (* for *): "
+echo -n "Please enter day of month (1-30) (* for not specified): "
 read day_of_month
-validat_day_of_month
+validate_day_of_month
 }
   
-function validat_day_of_month(){
+function validate_day_of_month(){
 if  [ $day_of_month -gt 0 ]  &&  [ $day_of_month -lt 32 ]
 then
 	get_day
@@ -101,25 +101,25 @@ fi
 
 
 ####Minutes
-function get_minuts () {
+function get_minutes () {
   echo -n "Please enter minutes after hour (0-60): "
   read minutes
-  valaidate_minuts
+  valaidate_minutes
 }
 
-function valaidate_minuts(){
+function valaidate_minutes(){
 if  [ $minutes -gt 0 ]  &&  [ $minutes -lt 61 ]
 then
 	get_hour
 else
 	printf "The number is not between 1 and 60"
 	echo
-	get_minuts
+	get_minutes
 fi
 }
 
 
-get_minuts
+get_minutes
 
 
 
