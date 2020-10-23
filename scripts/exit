@@ -1,0 +1,37 @@
+#!/bin/bash
+
+#title                    :exit.sh
+#description              :This script is for handling returning to menu and terminating the script
+#author                   :Markus Meresma (40439107)
+#date                     :2020.10.05
+#version                  :0.1
+#Made for                 :CSN08116 2020, coursework
+#contributors(1)          :Gabriel Saliev (40441590)
+#contributors(2)          :Dávid Gábor Uzonyi(40429825)
+
+function exit_to_main_menu(){
+
+echo ""
+
+while true
+do
+	read -p "Type 'exit' to return to menu or type 'end' to terminate the script: " input
+
+	case $input in
+        	"exit")
+			#clear terminal
+                	clear
+			#return to main menu
+                	source `pwd`"/menu"
+                	;;
+		"end")
+			#terminate the script
+			exit 0
+			;;
+		*)
+			;;
+        	esac
+done
+}
+#should be called from different script
+exit_to_main_menu

@@ -1,5 +1,4 @@
-#!/bin/sh
-
+#!/bin/bash
 #title                    :menu.sh
 #description              :This script is for editing jobs via friendlier interface 
 #author		          :Gabriel Saliev (40441590)
@@ -36,4 +35,3 @@ do
 done
 
 source `pwd`"/exit"    
-    

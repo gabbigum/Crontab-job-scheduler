@@ -1,41 +1,30 @@
-#!/bin/sh
+#!/bin/bash
 
 #title                    :displayjobs.sh
 #description              :This script is for displaying crontab jobs
-#author		          :Markus Meresma (40439107)
+#author		                :Markus Meresma (40439107)
 #date                     :2020.10.05
 #version                  :0.1
-#Made for		  :CSN08116 2020, coursework
+#Made for		              :CSN08116 2020, coursework
 #contributors(1)          :Gabriel Saliev (40441590)
 #contributors(2)          :Dávid Gábor Uzonyi(40429825)
 
-#Save crontab -l output in a variable
-file=$(crontab -l)
+#clear terminal
+clear
 
-while read -r line
-do
+echo "
+┌───────────── minute (0 - 59)
+│ ┌───────────── hour (0 - 23)
+│ │ ┌───────────── day of the month (1 - 31)
+│ │ │ ┌───────────── month (1 - 12)
+│ │ │ │ ┌───────────── day of the week (0 - 6) (Sunday to Saturday;
+│ │ │ │ │                                   7 is also Sunday on some systems)
+│ │ │ │ │
+│ │ │ │ │
+* * * * * <command to execute>"
 
-	echo $line
-#	grep -v "#" $line
+#skip lines with comments and display cronjobs
+crontab -l | grep -v "^#"
 
-done < "$file"
-
-#make this function in separate script
-read -p "Type 'exit' to return to menu: " input
-
-case $input in
-
-	"exit")
-		clear
-		source `pwd`"/menu" 
-		;;
-	*)
-		exit 0
-		;;
-	esac
-
-
-
-
-
-
+#execute return to menu script
+source `pwd`"/exit"
