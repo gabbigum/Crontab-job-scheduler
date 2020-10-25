@@ -13,7 +13,7 @@
 #2.Save job parameters to a variable
 #3.Ask user which parameters he wants to edit
 #Create new string with the edited parameters
-#Search and delete the cronjob in the crontab file
+#remove the non modified cronjob
 #Then insert the newly created job 
 
 file=$(crontab -l)
@@ -23,33 +23,30 @@ function main () {
     while true;
     do
 	#display jobs
-	source `pwd`"/displayjob"
-
+	crontab -l | grep -v "^#"
 	get_select_job
-
-	
     done
 
 }
 function get_select_job()
 {
-    echo "Select one of the jobs displayed (write it down): "
+    echo "Select one of the jobs displayed  (write it down): "
     read select_job_input
     validate_select_job
 }
 
 
 function validate_select_job() {
-    #if selected job does not exist in crontab file
+    #if selected job does not exist in crontab string
     #display error message
-
-    job_exist=grep $select_job_input $file
-    if ( $job_exist == false ]
+    
+    if [[ $file == *"$select_job_input"* ]];
     then
 	echo "This job does not exist."
 	get_select_job
     else
 	#2.save select job in a var
+	# might not work
 	saved_job=$select_job_input
     fi
 }
@@ -57,6 +54,42 @@ function validate_select_job() {
 function edit_saved_job(){
     # call the functions from insert job
     # 3.ask user which parameters he wants to edit
+    # split saved_job to tokens
+    # Tokenize the row
+    # change tokens based on the parameters the user wants to edit
+    
+    
+    echo "Which parameters you want to edit?
+
+    	 1. Minutes
+	 2. Hour
+	 3. Day of month
+	 4. Month of year
+	 5. Day of week
+	 6. Exit    
+
+	 Enter choice [1 | 2 | 3 | 4 | 5 | 0]: "
+
+    read numchoice
+
+    case $numchoice in
+	"1" ) edit_minutes
+	      break;;
+	"2" ) edit_hour
+	      break;;
+	"3" ) edit_day_of_month
+	      break;;
+	"4" ) edit_month_of_year
+	      break;;
+	"5" ) edit_day_of_week
+	      break;;
+	"0" ) break;;
+	* ) echo -n "You entered an incorrect option. Please try again." ;;
+    esac
+
+    #case for every parameter
+    #in while loop
+    
     # edit job name?
     # minutes
     # hour
@@ -65,4 +98,26 @@ function edit_saved_job(){
     # day of week
 }
 
+
+function edit_minutes(){
+    echo "edit mins"
+}
+
+function edit_hour(){
+    echo "edit hour"
+}
+
+function edit_day_of_month(){
+    echo "edit dayofmonth"
+}
+
+function edit_month_of_year(){
+    echo "edit monthofyear"
+}
+
+function edit_day_of_week() {
+    echo "edit dayofweek"
+}
+
+main
 source `pwd`"/exit"    
