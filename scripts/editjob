@@ -20,18 +20,26 @@ file=$(crontab -l)
 
 function main () {
 
-    while true;
-    do
-	#display jobs
-	crontab -l | grep -v "^#"
-	get_select_job
-    done
+    #display jobs
+    crontab -l | grep -v "^#"
+    get_select_job
 
+    #while loop and ask if user wants to edit another job?
+    edit_saved_job
+    
 }
 function get_select_job()
 {
+    #validation for select_job_input length, cant be less than 10 chars
     echo "Select one of the jobs displayed  (write it down): "
     read select_job_input
+
+    if [[ ${#select_job_input} -lt 10 ]];
+    then
+	echo "You must enter a correct cronjob."
+	get_select_job
+    fi
+    
     validate_select_job
 }
 
@@ -42,12 +50,12 @@ function validate_select_job() {
     
     if [[ $file == *"$select_job_input"* ]];
     then
+	#tokenize job 
+	job_tokens=( $select_job_input )
+	
+    else
 	echo "This job does not exist."
 	get_select_job
-    else
-	#2.save select job in a var
-	# might not work
-	saved_job=$select_job_input
     fi
 }
 
@@ -66,27 +74,36 @@ function edit_saved_job(){
 	 3. Day of month
 	 4. Month of year
 	 5. Day of week
-	 6. Exit    
+	 0. Done    
 
 	 Enter choice [1 | 2 | 3 | 4 | 5 | 0]: "
 
-    read numchoice
 
+    #put it in loop and ask the user if he wants to edit another job
+    read numchoice
+    
     case $numchoice in
 	"1" ) edit_minutes
-	      break;;
+	      ;;
 	"2" ) edit_hour
-	      break;;
+	      ;;
 	"3" ) edit_day_of_month
-	      break;;
+	      ;;
 	"4" ) edit_month_of_year
-	      break;;
+	      ;;
 	"5" ) edit_day_of_week
-	      break;;
-	"0" ) break;;
+	      ;;
+	"0" ) ;;
 	* ) echo -n "You entered an incorrect option. Please try again." ;;
     esac
 
+    
+    
+    #remove the job
+    crontab -l | sed "/$select_job_input/d" | crontab -
+
+    (crontab -l ; echo ${job_tokens[@]})| crontab -
+    
     #case for every parameter
     #in while loop
     
@@ -99,24 +116,44 @@ function edit_saved_job(){
 }
 
 
+
+#all the functions below need the validation from insert_job
+
+
 function edit_minutes(){
-    echo "edit mins"
+    #mins validation
+    echo "Enter the new minutes (1-60): "
+    read minutes
+    job_tokens[0]=$minutes
+    echo "Minutes edited."
 }
 
 function edit_hour(){
-    echo "edit hour"
+    echo "Enter the new hour (1-24): "
+    read hour
+    job_tokens[1]=$hour
+    echo "Hour edited."
 }
 
 function edit_day_of_month(){
-    echo "edit dayofmonth"
+    echo "Enter the new day of the month (1-30) (* for not specified):"
+    read day_of_month
+    job_tokens[2]=$day_of_month
+    echo "Day of month edited."
 }
 
 function edit_month_of_year(){
-    echo "edit monthofyear"
+    echo "Enter the new month of the year (1-12) (* for not specified):"
+    read month_of_year
+    job_tokens[3]=$month_of_year
+    echo "Month of year edited"
 }
 
 function edit_day_of_week() {
-    echo "edit dayofweek"
+    echo "Enter the new day of the week (1-7) (* for not specified):"
+    read day_of_week
+    job_tokens[4]=$day_of_week
+    echo "Day of week edited"
 }
 
 main
