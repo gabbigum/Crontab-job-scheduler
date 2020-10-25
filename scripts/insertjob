@@ -18,22 +18,23 @@ examples:
      (2) echo hello > /tmp/hello
 input:"
 
-#validation  
 read job_input
 
-
+#validation  the user inupt
 function valadtion(){
-
 
 function user_interaction  () {
  
 echo -n $Text
 read user_input
-validat
+
+validat_number
 }
-  
-function validat(){
-if  [ $user_input -gt $greater_than ]  &&  [ $user_input -lt $Less_than ]
+#validation of the user input according arguments
+function validat_number(){
+
+
+if  [ $user_input -gt $greater_than ]  &&  [ $user_input -lt $Less_than ]  
 then
 	echo "all good , delet later!!!"
 else
@@ -43,9 +44,46 @@ else
 fi
 }
 
+#set a time or not (*)
+function yes_or_no_output(){
+echo "Would you like to set the $Type for the job to fire"
+echo -n "yes or no: "
+read yes_or_no
+}
 
-#call user_interaction function 
-user_interaction
+function fireup_or_not() {
+
+while true; do #while loop for error handling
+yes_or_no_output
+ if [ $yes_or_no == "yes" ] 
+ then
+   	printf  "$Type  will be add to the job"
+	  #call user_interaction function to get the number from the user
+	user_interaction
+ 	break #escapes loop
+
+ elif [  $yes_or_no == "no" ]; 
+    then
+   	printf "no $Type will be add to the job"
+   	#if the user does not want to add timing
+   	#user_input nedds to be <*>
+	user_input="*"
+	echo
+    break #escapes loop
+
+ else #else statment for not valid input
+   clear
+   printf "This is not a valid option $yes_or_no"
+   echo
+
+  fi
+done
+
+
+}
+
+fireup_or_not
+
 
 }
 
@@ -54,7 +92,8 @@ user_interaction
 #Get the minutes from the user
 #Passing parameters to the function
 Text="Please enter minutes after hour (0-60): "
-greater_than=0
+Type="Minute"
+greater_than=-1
 Less_than=61
 #call valadtion function
 valadtion
@@ -64,6 +103,7 @@ minutes=$user_input
 #Get the hour from the user
 #Passing parameters to the function
 Text="Please enter hour (0-24):  "
+Type="Hour"
 greater_than=0
 Less_than=25
 #call valadtion function
@@ -74,18 +114,20 @@ hour=$user_input
 
 #Get the day of month from the user
 #Passing parameters to the function
-Text="Please enter day of month (1-30) (* for not specified): "
+Text="day of month enter day of month (1-30) (* for not specified): "
+Type="day of the month"
 greater_than=0
 Less_than=32
 #call valadtion function
 valadtion
-day=$user_input
+day_of_month=$user_input
 
 
 
-#Get the day of month from the user
+#Get the day of week from the user
 #Passing parameters to the function
 Text="Please enter day of the week (1-7) (* for not specified):"
+Type="day of the week"
 greater_than=0
 Less_than=8
 #call valadtion function
@@ -98,6 +140,7 @@ day_of_week=$user_input
 #Get the day of month from the user
 #Passing parameters to the function
 Text="Please enter month of year (1-12) (* for not specified):"
+Type="month of year"
 greater_than=0
 Less_than=13
 #call valadtion function
@@ -110,11 +153,9 @@ month_of_year=$user_input
 #make day_of_year and day_of_month stars * *
 
 job_format="$minutes $hour $day_of_month $month_of_year $day_of_week $job_input"
-
+echo "testingn: $job_format "
 (crontab -l ; echo $job_format)| crontab -
 
 echo "Crontab created successfully!"
 
 source `pwd`"/exit"
-
-
