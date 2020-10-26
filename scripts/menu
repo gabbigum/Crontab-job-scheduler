@@ -65,7 +65,7 @@ Please select an option from the menu:
            break;;
      "5" ) source $remove_all_jobs_wd
 	   break;;
-     "0" ) break;;
+     "0" ) exit 0;;
      * ) echo -n "You entered an incorrect option. Please try again." ;;
  esac
 done 

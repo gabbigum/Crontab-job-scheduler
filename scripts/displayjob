@@ -2,17 +2,18 @@
 
 #title                    :displayjobs.sh
 #description              :This script is for displaying crontab jobs
-#author		                :Markus Meresma (40439107)
+#author		          :Markus Meresma (40439107)
 #date                     :2020.10.05
 #version                  :0.1
-#Made for		              :CSN08116 2020, coursework
+#Made for		  :CSN08116 2020, coursework
 #contributors(1)          :Gabriel Saliev (40441590)
 #contributors(2)          :Dávid Gábor Uzonyi(40429825)
 
 #clear terminal
 clear
 
-echo "
+echo "Here is a list of all the system's cronjobs (cronjobs are tasks which are scheduled to run at regular time intervals on the system):
+
 ┌───────────── minute (0 - 59)
 │ ┌───────────── hour (0 - 23)
 │ │ ┌───────────── day of the month (1 - 31)
@@ -26,5 +27,8 @@ echo "
 #skip lines with comments and display cronjobs
 crontab -l | grep -v "^#"
 
-#execute return to menu script
+#print an empty line
+echo ""
+
+#execute exit script
 source `pwd`"/exit"
