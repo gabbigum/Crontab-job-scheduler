@@ -2,12 +2,11 @@
 
 #title                    :insertjob.sh                                   
 #description              :
-#author                   :Gabriel Saliev (40441590),Dávid Gábor Uzonyi(40429825)
-#date                     :2020.10.15                                                    
-#version                  :0.1
+#author                   :Gabriel Saliev (40441590)
+#date                     :2020.10.15                                                    #version                  :0.1
 #Made for                 :CSN08116 2020, coursework                             
 #contributors(1)          :Markus Meresma (40439107)                                  
-
+#contributors(2)          :Dávid Gábor Uzonyi(40429825)
 
 
 echo "
@@ -17,143 +16,96 @@ examples:
      (1) /home/downloads/.../script_one
      (2) echo hello > /tmp/hello
 input:"
-
 read job_input
 
-#validation  the user inupt
-function valadtion(){
-
-function user_interaction  () {
- 
-echo -n $Text
-read user_input
-
-validat_number
-}
-#validation of the user input according arguments
-function validat_number(){
+#do validations, set constraints
 
 
-if  [ $user_input -gt $greater_than ]  &&  [ $user_input -lt $Less_than ]  
-then
-	echo "all good , delet later!!!"
-else
-	printf "The number is not Greater than $greater_than or not Less than $Less_than"
-	echo
-	user_interaction
-fi
-}
+#enter minutes
+while true;
+do
+    echo "Enter the minutes (1-59): "
+    read minutes
 
-#set a time or not (*)
-function yes_or_no_output(){
-echo "Would you like to set the $Type for the job to fire"
-echo -n "yes or no: "
-read yes_or_no
-}
-
-function fireup_or_not() {
-
-while true; do #while loop for error handling
-yes_or_no_output
- if [ $yes_or_no == "yes" ] 
- then
-   	printf  "$Type  will be add to the job"
-	  #call user_interaction function to get the number from the user
-	user_interaction
- 	break #escapes loop
-
- elif [  $yes_or_no == "no" ]; 
+    if [[ minutes -ge 1 ]] && [[ minutes -le 59 ]];
     then
-   	printf "no $Type will be add to the job"
-   	#if the user does not want to add timing
-   	#user_input nedds to be <*>
-	user_input="*"
-	echo
-    break #escapes loop
-
- else #else statment for not valid input
-   clear
-   printf "This is not a valid option $yes_or_no"
-   echo
-
-  fi
+	break
+    else
+	echo "You must enter a number between 1 and 59."
+    fi
 done
 
+#enter hour
+while true;
+do
+    echo "Enter the hour (0-23):"
+    read hour
 
-}
+    if [[ hour -ge 0 ]] && [[ hour -le 23 ]];
+    then
+	break
+    else
+	echo "You must enter a number between 0 and 23."
+    fi
+done
 
-fireup_or_not
+#enter day of the month
 
+while true;
+do
+    echo "Enter the day of month (1-31) (enter * for not specified): "
+    read day_of_month
 
-}
+    if [[ day_of_month -ge 1 ]] || [[ day_of_month -le 31 ]];
+    then
+	break
+    elif [[ "$day_of_month" == "*" ]] && [[ -z "$day_of_month" ]];
+    then
+	break
+    else
+	echo "You must enter a number between 1 and 31."
 
+    fi
+done
 
+#enter month of the year
 
-#Get the minutes from the user
-#Passing parameters to the function
-Text="Please enter minutes after hour (0-60): "
-Type="Minute"
-greater_than=-1
-Less_than=61
-#call valadtion function
-valadtion
-minutes=$user_input
+while true;
+do
+    echo "Enter month of year (1-12) (enter * for not specified): "
+    read month_of_year
 
+    if [[ month_of_year -ge 1 ]] && [[ month_of_year -le 12 ]];
+    then
+	break
+    elif [[ "$month_of_year" == "*" ]] || [[ -z "$month_of_year" ]];
+    then
+	break
+    else
+	echo "You must enter a number between 1 and 12."
+    fi
+done
 
-#Get the hour from the user
-#Passing parameters to the function
-Text="Please enter hour (0-24):  "
-Type="Hour"
-greater_than=0
-Less_than=25
-#call valadtion function
-valadtion 
-hour=$user_input
+#enter day of the week
 
+while true;
+do
+    echo "Enter day of week (1-7) (enter * for not specified): "
+    read day_of_week
 
-
-#Get the day of month from the user
-#Passing parameters to the function
-Text="day of month enter day of month (1-30) (* for not specified): "
-Type="day of the month"
-greater_than=0
-Less_than=32
-#call valadtion function
-valadtion
-day_of_month=$user_input
-
-
-
-#Get the day of week from the user
-#Passing parameters to the function
-Text="Please enter day of the week (1-7) (* for not specified):"
-Type="day of the week"
-greater_than=0
-Less_than=8
-#call valadtion function
-valadtion
-day_of_week=$user_input
-
-
-
-
-#Get the day of month from the user
-#Passing parameters to the function
-Text="Please enter month of year (1-12) (* for not specified):"
-Type="month of year"
-greater_than=0
-Less_than=13
-#call valadtion function
-valadtion 
-month_of_year=$user_input
-
-
-
-#if day of the week is specified
-#make day_of_year and day_of_month stars * *
+    if [[ day_of_week -ge 1 ]] && [[ day_of_week -le 7 ]];
+    then
+	break
+    elif [[ "$day_of_week" == "*" ]] || [[ -z "$day_of_week" ]];
+    then
+	break
+    else
+	echo "You must enter a number between 1 and 7."
+    fi
+done
 
 job_format="$minutes $hour $day_of_month $month_of_year $day_of_week $job_input"
-echo "testingn: $job_format "
+
 (crontab -l ; echo $job_format)| crontab -
 
 echo "Crontab created successfully!"
