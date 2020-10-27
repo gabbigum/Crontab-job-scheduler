@@ -27,7 +27,7 @@ echo "Here is a list of all the system's cronjobs (cronjobs are tasks which are 
 #skip lines with comments and display cronjobs
 crontab -l | grep -v "^#"
 
-#print an empty line
+
 echo ""
 
 #execute exit script
