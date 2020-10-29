@@ -9,6 +9,9 @@
 #contributors(2)          :Dávid Gábor Uzonyi(40429825)
 
 
+
+while true ; do
+
 echo "
 Please insert a job with specified directory(1) or write task(2).
      
@@ -16,7 +19,19 @@ examples:
      (1) /home/downloads/.../script_one
      (2) echo hello > /tmp/hello
 input:"
+
 read job_input
+
+if [ -z "$job_input" ]
+then 
+	clear	
+	echo "Job input can not be  epmty!"
+else
+break
+fi	
+
+done
+
 
 #do validations, set constraints
 
