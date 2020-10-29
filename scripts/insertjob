@@ -25,7 +25,7 @@ read job_input
 if [ -z "$job_input" ]
 then 
 	clear	
-	echo "Job input can not be  epmty!"
+	echo "Job input can not be epmty!"
 else
 break
 fi	
