@@ -18,13 +18,12 @@ function remove_all_jobs () {
   read user_input #read the user input
 }
 
-function input_valdtion(){
+function input_validation(){
 while true; do #while loop for error handling
   remove_all_jobs
 
  if [ $user_input == "yes" ] 
  then
-   	printf "All jobs will  be removed"
     crontab -r #removes all crontab jobs
  break #escapes loop
 
@@ -33,7 +32,7 @@ while true; do #while loop for error handling
    	printf "Jobs will not be removed"
  break #escapes loop
 
- else #else statment for not valid input
+ else #else statement for not valid input
    clear
    printf "This is not a valid option %s\n" "$user_input"
    echo
@@ -42,7 +41,7 @@ while true; do #while loop for error handling
 done
 }
 
-input_valdtion
+input_validation
 
 
 #execute return to menu script
