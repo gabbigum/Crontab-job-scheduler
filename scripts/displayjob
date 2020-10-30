@@ -12,8 +12,13 @@
 #clear terminal
 clear
 
-echo "Here is a list of all the system's cronjobs (cronjobs are tasks which are scheduled to run at regular time intervals on the system):
+#count the lines without comments in crontab file
+var=$(crontab -l | grep -cv "^#")
 
+#if there are any cronjobs then display them
+if [ $var -gt 0 ]
+then
+	echo "Here is a list of cronjobs:
 ┌───────────── minute (0 - 59)
 │ ┌───────────── hour (0 - 23)
 │ │ ┌───────────── day of the month (1 - 31)
@@ -24,11 +29,14 @@ echo "Here is a list of all the system's cronjobs (cronjobs are tasks which are 
 │ │ │ │ │
 * * * * * <command to execute>"
 
-#skip lines with comments and display cronjobs
-crontab -l | grep -v "^#"
+	#skip lines with comments and display cronjobs
+	crontab -l | grep -v "^#"
+	echo ""
 
-
-echo ""
+else
+	echo "No cronjobs available for $USER"
+	echo ""
+fi
 
 #execute exit script
 source `pwd`"/exit"

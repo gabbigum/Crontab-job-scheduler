@@ -9,67 +9,106 @@
 #contributors(1)          :Gabriel Saliev (40441590)
 #contributors(2)          :Dávid Gábor Uzonyi(40429825)
 
-#function to remove a job
-function remove_a_job(){
-	
 #clear the terminal
-clear 
+clear
 
-echo "List of current cronjobs: "
-echo ""
+#loop while there are cronjobs to remove, if no cronjobs then display a message
+function check_cronjobs(){
 
-#displayjobs
-crontab -l | grep -v "^#"
-echo ""
+	
+	#count the lines without comments in crontab file
+	var=$(crontab -l | grep -cv "^#")
 
-while true
-do
-	echo "Please insert the command of the job you would like to remove (e.g. * 12 1 * 1 /home/test/bin/check-db-status)
-Type 'exit' to return to main menu or 'end' to terminate the program"
-	read job
+	while [ $var -gt 0 ]
+	do
+		echo "List of current cronjobs: "
+                echo ""
+                crontab -l | grep -v "^#" #displayjobs
+		echo ""
+                remove_a_job #call the function
+		var=$(crontab -l | grep -cv "^#")
+	done
 
-	case $job in
-		"exit")
-			#clear the terminal and return to main menu
-			clear
-			source `pwd`"/menu"
-			;;
-		"end")
-			#terminate the program
-			exit 0
-			;;
-		"")
-			echo "No input detected"
-			continue
-			;;
-		*)
-			#call the function which handles deletion
-			search_and_delete $job
-			;;
-	esac
-done
+	echo "No cronjobs to remove"
+	echo ""
+}
+
+#function to remove a job
+function remove_a_job(){ 
+
+	choice=1
+	while [ $choice != 0 ]; do
+		echo "Please insert the command of the job you would like to remove (e.g. * 12 1 * 1 /home/test/bin/check-db-status) [You can also type 'exit' to return to main menu or 'end' to terminate the program]"
+		read job
+
+		case $job in
+			"exit")
+				#clear the terminal and return to main menu
+				clear
+				source `pwd`"/menu"
+				;;
+			"end")
+				#terminate the program
+				exit 0
+				;;
+			"")
+				echo "No input detected"
+				echo ""
+				continue
+				;;
+			*)
+				#call the function which handles deletion
+				choice=0
+				search_and_delete $job
+				;;
+		esac
+	done
 }
 
 #function to search for a cronjob and delete it
 function search_and_delete(){
 	
-	#search for the command in cronjob file
-	if crontab -l | grep $1
+	#search for the cronjob in the crontab
+	var=$(crontab -l | grep -c $1)
+
+	#if more than one cronjob found then ask to be more specific
+	if [ $var -gt 1 ]
 	then
-		echo "Cronjob found. Are you sure you want to delete it? (Y/N)"
-		read answer
-		if [[ "$answer" == "Y" ]]
-		then
-			crontab -l | sed "/1/d" | crontab -
-			echo "Cronjob deleted"
-		fi
+		echo "More than one cronjob found. Please be more specific."
+		echo ""
+	elif [ $var -eq 1 ] #if exactly one cronjob found
+	then
+		cronjob=$(crontab -l | grep $1)
+		choice=1
+
+		while [ $choice != 0 ]; do
+			echo "Cronjob found. Are you sure you want to delete it? (Y/N)"
+			read answer
+			
+			case $answer in
+				"Y") 
+					crontab -l | sed "/$cronjob/d" | crontab -
+					echo "Cronjob deleted"
+                                	echo ""
+					choice=0 #set choice flag to 0
+					;;
+				"N")
+					choice=0 #set choice flag to 0
+					echo ""
+					;;
+				"*")
+					continue
+					;;
+			esac
+		done
 	else
 		echo "The job you want to remove does not exist in the file"
+		echo ""
 	fi
 }
 
-#should be called from different script
-remove_a_job
+#call the check_cronjobs function
+check_cronjobs
 
 #use exit script
 source `pwd`"/exit"
