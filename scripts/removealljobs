@@ -16,6 +16,7 @@ function remove_all_jobs () {
   echo -n "Enter yes or no:"
 
   read user_input #read the user input
+
 }
 
 function input_validation(){
@@ -25,16 +26,15 @@ while true; do #while loop for error handling
  if [ $user_input == "yes" ] 
  then
     crontab -r #removes all crontab jobs
- break #escapes loop
+ break 
 
  elif [  $user_input == "no" ]; 
     then
    	printf "Jobs will not be removed"
- break #escapes loop
+ break
 
  else #else statement for not valid input
-   clear
-   printf "This is not a valid option %s\n" "$user_input"
+      printf "This is not a valid option %s\n" "$user_input"
    echo
 
   fi
