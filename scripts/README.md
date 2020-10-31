@@ -1,4 +1,4 @@
-Demomycrontab - a program for managing cron jobs 
+mycrontab - a program for managing cron jobs 
 
 Cron is a demon to execute scheduled commands
 
