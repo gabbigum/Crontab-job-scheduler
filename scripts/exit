@@ -22,7 +22,7 @@ do
 			#clear terminal
                 	clear
 			#return to main menu
-                	source `pwd`"/menu"
+                	source `pwd`"/mycrontab"
                 	;;
 		"end")
 			#terminate the script

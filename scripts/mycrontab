@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#title                    :menu.sh
+#title                    :mycrontab.sh
 #description              :This script for usere interaction 
 #author		              :Dávid Gábor Uzonyi(40429825)
 #date                     :2020.10.05
@@ -17,6 +17,7 @@ insert_job_wd=`pwd`"/insertjob"
 edit_job_wd=`pwd`"/editjob"
 remove_job_wd=`pwd`"/removejob"
 remove_all_jobs_wd=`pwd`"/removealljobs"
+exit_wd=`pwd`"/exit"
 
 
 #The menu function is the first interaction with the user.
@@ -50,9 +51,10 @@ Please select an option from the menu:
  3. Edit a job
  4. Remove a job
  5. Remove all jobs
+ 6. Help
  0. Exit
  
- Enter choice [1 | 2 | 3 | 4 | 5 | 0]: "
+ Enter choice [1 | 2 | 3 | 4 | 5 | 6 | 0]: "
  read numchoice
  case $numchoice in
      "1" ) source $display_job_wd
@@ -64,6 +66,8 @@ Please select an option from the menu:
      "4" ) source $remove_job_wd
            break;;
      "5" ) source $remove_all_jobs_wd
+	   break;;
+      "6" ) cat README.md  ; source $exit_wd
 	   break;;
      "0" ) exit 0;;
      * ) echo -n "You entered an incorrect option. Please try again." ;;
