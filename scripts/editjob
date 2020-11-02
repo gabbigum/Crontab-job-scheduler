@@ -21,7 +21,17 @@ file=$(crontab -l)
 function main () {
 
     #display jobs
-    crontab -l | grep -v "^#"
+    
+
+#    count_lines=$(crontab -l | grep -cv "^#")
+
+    if [ $(crontab -l | grep -cv "^#") -eq 0 ]
+    then
+	source `pwd`"/exit"
+    else
+	crontab -l | grep -v "^#"
+    fi
+    
     get_select_job
 
     #while loop and ask if user wants to edit another job?
@@ -65,6 +75,7 @@ function edit_saved_job(){
     # split saved_job to tokens
     # Tokenize the row
     # change tokens based on the parameters the user wants to edit
+
     while true;
     do
 	
@@ -102,6 +113,8 @@ Enter choice [1 | 2 | 3 | 4 | 5 | 0]: "
 
     done
     
+    
+    
     #remove the job
     crontab -l | sed "/$select_job_input/d" | crontab -
 
@@ -117,14 +130,14 @@ function edit_minutes(){
     #minutes validation
     while true;
     do
-	    echo "Enter the new minutes (1-59): "
+	    echo "Enter the new minutes (0-59): "
 	    read minutes
 
-	    if [[ minutes -ge 1 ]] && [[ minutes -le 59 ]];
+	    if [[ minutes -ge 0 ]] && [[ minutes -le 59 ]];
 	    then
 		break
 	    else
-		echo "You must enter a number between 1 an 59."
+		echo "You must enter a number between 0 an 59."
 	    fi
     done
        
@@ -161,7 +174,7 @@ function edit_day_of_month(){
 	if [[ day_of_month -ge 1 ]] || [[ day_of_month -le 31 ]];
 	then
 	    break
-	elif [[ "$day_of_month" == "*" ]] && [[ -z "$day_of_month" ]];
+	elif [[ "$day_of_month" =~ [*] ]] && [[ -z "$day_of_month" ]];
 	then
 	    break
 	else
