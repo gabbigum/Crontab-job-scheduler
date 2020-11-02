@@ -45,7 +45,7 @@ function remove_a_job(){
 			"exit")
 				#clear the terminal and return to main menu
 				clear
-				source `pwd`"/menu"
+				source `pwd`"/mycrontab"
 				;;
 			"end")
 				#terminate the program
