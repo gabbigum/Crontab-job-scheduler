@@ -39,14 +39,14 @@ done
 #enter minutes
 while true;
 do
-    echo "Enter the minutes (1-59): "
+    echo "Enter the minutes (0-59): "
     read minutes
 
-    if [[ minutes -ge 1 ]] && [[ minutes -le 59 ]];
+    if [[ minutes -ge 0 ]] && [[ minutes -le 59 ]];
     then
 	break
     else
-	echo "You must enter a number between 1 and 59."
+	echo "You must enter a number between 0 and 59."
     fi
 done
 
