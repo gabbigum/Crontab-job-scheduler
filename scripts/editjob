@@ -21,9 +21,7 @@ file=$(crontab -l)
 function main () {
 
     #display jobs
-    
-
-#    count_lines=$(crontab -l | grep -cv "^#")
+   
 
     if [ $(crontab -l | grep -cv "^#") -eq 0 ]
     then
