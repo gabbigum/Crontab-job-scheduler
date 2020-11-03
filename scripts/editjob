@@ -116,7 +116,7 @@ Enter choice [1 | 2 | 3 | 4 | 5 | 0]: "
     #remove the job
     crontab -l | sed "/$select_job_input/d" | crontab -
 
-    (crontab -l ; echo ${job_tokens[@]})| crontab -
+    (crontab -l ; echo "${job_tokens[@]}")| crontab -
 }
 
 
@@ -128,18 +128,26 @@ function edit_minutes(){
     #minutes validation
     while true;
     do
-	    echo "Enter the new minutes (0-59): "
-	    read minutes
+	echo "Enter the minutes (0-59) (write 'unspecified' if you don't want to specify minute):"
+	read min
 
-	    if [[ minutes -ge 0 ]] && [[ minutes -le 59 ]];
+	if [[ $min =~ ^[0-9][0-9] ]] || [[ $min =~ ^[0-9] ]];
+	then
+	    if [[ $min -ge 0 ]] && [[ $min -lt 60 ]]
 	    then
+		minutes="$min"
 		break
-	    else
-		echo "You must enter a number between 0 an 59."
 	    fi
+	elif [[ "$min" == "unspecified" ]];
+	then
+	    minutes="*"
+	    break
+	else
+	    echo "You must enter a number between 0 an 59."
+	fi
     done
        
-    job_tokens[0]=$minutes
+    job_tokens[0]="$minutes"
     echo "Minutes edited successfully."
 }
 
@@ -147,18 +155,26 @@ function edit_hour(){
     #hour validation
     while true;
     do
-	echo "Enter the new hour (0-23):"
-	read hour
+	echo "Enter the hour (0-23) (write 'unspecified' if you don't want to specify hour):"
+	read hr
 
-	if [[ hour -ge 0 ]] && [[ hour -le 23 ]];
+	if [[ $hr =~ ^[0-9][0-9] ]] || [[ $hr =~ ^[0-9] ]];
 	then
+	    if [[ $hr -ge 0 ]] && [[ $hr -le 23 ]]
+	    then  
+		hour="$hr"
+		break
+	    fi
+	elif [[ "$hr" == "unspecified" ]];
+	then
+	    hour="*"
 	    break
 	else
 	    echo "You must enter a number between 0 and 23."
 	fi
     done
     
-    job_tokens[1]=$hour
+    job_tokens[1]="$hour"
     echo "Hour edited successfully."
 }
 
@@ -166,45 +182,54 @@ function edit_day_of_month(){
     
     while true;
     do
-	echo "Enter the new day of month (1-31) (enter * for not specified): "
-	read day_of_month
-
-	if [[ day_of_month -ge 1 ]] || [[ day_of_month -le 31 ]];
+	echo "Enter the day of month (1-31) (write 'unspecified' if you don't want to specify day of month):"
+	read dom
+	
+	if [[ $dom =~ ^[0-9][0-9] ]] || [[ $dom =~ ^[0-9] ]];
 	then
-	    break
-	elif [[ "$day_of_month" =~ [*] ]] && [[ -z "$day_of_month" ]];
+	    if [[ $dom -ge 1 ]] && [[ $dom -le 31 ]]
+	    then  
+		day_of_month="$dom"
+		break
+	    fi
+	elif [[ "$dom" == "unspecified" ]];
 	then
+	    day_of_month="*"
 	    break
 	else
 	    echo "You must enter a number between 1 and 31."
-
 	fi
+	
     done
-   
-    job_tokens[2]=$day_of_month
+
+    job_tokens[2]="$day_of_month"
     echo "Day of month edited successfully."
 }
 
 function edit_month_of_year(){
 
-        
     while true;
     do
-	echo "Enter the new month of year (1-12) (enter * for not specified): "
-	read month_of_year
+	echo "Enter month of year (1-12) (write 'unspecified' if you don't want to specify month of year):"
+	read moy
 
-	if [[ month_of_year -ge 1 ]] && [[ month_of_year -le 12 ]];
+	if [[ $moy =~ ^[0-9][0-9] ]] || [[ $moy =~ ^[0-9] ]];
 	then
-	    break
-	elif [[ "$month_of_year" == "*" ]] || [[ -z "$month_of_year" ]];
+	    if [[ $moy -ge 1 ]] && [[ $moy -le 12 ]]
+	    then  
+		month_of_year="$moy"
+		break
+	    fi
+	elif [[ "$moy" == "unspecified" ]];
 	then
+	    month_of_year="*"
 	    break
 	else
 	    echo "You must enter a number between 1 and 12."
 	fi
     done
-    
-    job_tokens[3]=$month_of_year
+
+    job_tokens[3]="$month_of_year"
     echo "Month of year edited successfully."
 }
 
@@ -212,21 +237,27 @@ function edit_day_of_week() {
     
     while true;
     do
-	echo "Enter the new day of week (1-7) (enter * for not specified): "
-	read day_of_week
+	echo "Enter day of week (1-7) (write 'unspecified' if you don't want to specify day of week):"
+	read dow
 
-	if [[ day_of_week -ge 1 ]] && [[ day_of_week -le 7 ]];
+	if [[ $dow =~ ^[0-9][0-9] ]] || [[ $dow =~ ^[0-9] ]];
 	then
-	    break
-	elif [[ "$day_of_week" == "*" ]] || [[ -z "$day_of_week" ]];
+	    if [[ $dow -ge 1 ]] && [[ $dow -le 31 ]]
+	    then  
+		day_of_week="$dow"
+		break
+	    fi
+	elif [[ "$dow" == "unspecified" ]];
 	then
+	    day_of_week="*"
 	    break
 	else
 	    echo "You must enter a number between 1 and 7."
 	fi
+
     done
     
-    job_tokens[4]=$day_of_week
+    job_tokens[4]="$day_of_week"
     echo "Day of week edited successfully."
 }
 

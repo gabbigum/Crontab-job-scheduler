@@ -51,6 +51,18 @@ do
     then
 	minutes="*"
 	break
+    elif [[ $min =~ ^/ ]]
+    then
+        input=$(echo "$min" | tr -d "/")
+
+	if [ $input -ge 0 ] && [ $input -le 59 ]
+	then
+	    minutes="$min"
+	    echo "The cronjob is scheduled every $minutes minutes."
+	    break
+	else
+	    echo "You must enter a number between 0 and 59."
+	fi
     else
 	echo "You must enter a number between 0 and 59."
     fi
@@ -64,7 +76,7 @@ do
 
     if [[ $hr =~ ^[0-9][0-9] ]] || [[ $hr =~ ^[0-9] ]];
     then
-	if [[ $hr -ge 0 ]] && [[ $hr -lt 23 ]]
+	if [[ $hr -ge 0 ]] && [[ $hr -le 23 ]]
 	then  
 	    hour="$hr"
 	    break
@@ -146,7 +158,7 @@ do
 	day_of_week="*"
 	break
     else
-	echo "You must enter a number between 1 and 31."
+	echo "You must enter a number between 1 and 7."
     fi
 
 done
