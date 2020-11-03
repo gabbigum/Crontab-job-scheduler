@@ -38,7 +38,7 @@ function remove_a_job(){
 
 	choice=1
 	while [ $choice != 0 ]; do
-		echo "Please insert the command of the job you would like to remove (e.g. * 12 1 * 1 /home/test/bin/check-db-status) [You can also type 'exit' to return to main menu or 'end' to terminate the program]"
+		echo "Please insert the command of the job you would like to remove (e.g. /home/test/bin/check-db-status) [You can also type 'exit' to return to main menu or 'end' to terminate the program]"
 		read job
 
 		case $job in
@@ -71,23 +71,22 @@ function search_and_delete(){
 	#search for the cronjob in the crontab
 	var=$(crontab -l | grep -c $1)
 
-	#if more than one cronjob found then ask to be more specific
-	if [ $var -gt 1 ]
+	#search for the cronjob
+	if [ $var -gt 0 ]
 	then
-		echo "More than one cronjob found. Please be more specific."
-		echo ""
-	elif [ $var -eq 1 ] #if exactly one cronjob found
-	then
+		#save the cronjob to a variable
 		cronjob=$(crontab -l | grep $1)
 		choice=1
 
+		#loop until user enters Y/N
 		while [ $choice != 0 ]; do
 			echo "Cronjob found. Are you sure you want to delete it? (Y/N)"
 			read answer
 			
 			case $answer in
 				"Y") 
-					crontab -l | sed "/$cronjob/d" | crontab -
+					#delete the cronjob
+					crontab -u $USER -l | grep -v "$cronjob" | crontab -u $USER -
 					echo "Cronjob deleted"
                                 	echo ""
 					choice=0 #set choice flag to 0
@@ -102,12 +101,13 @@ function search_and_delete(){
 			esac
 		done
 	else
+		#display error message if there is no cronjob in the file
 		echo "The job you want to remove does not exist in the file"
 		echo ""
 	fi
 }
 
-#call the check_cronjobs function
+#call the check_cronjobs function - executes the script
 check_cronjobs
 
 #use exit script
