@@ -33,13 +33,13 @@ fi
 done
 
 
-#do validations, set constraints
-
 #enter minutes
 while true;
 do
     echo "Enter the minutes (0-59) (write 'unspecified' if you don't want to specify minute):"
     read min
+
+    #regex for validation
     if [[ $min =~ ^[0-9][0-9] ]] || [[ $min =~ ^[0-9] ]];
     then
 	if [[ $min -ge 0 ]] && [[ $min -lt 60 ]]
@@ -53,11 +53,11 @@ do
 	break
     elif [[ $min =~ ^/ ]]
     then
-        input=$(echo "$min" | tr -d "/")
+        input=$(echo "$min" | tr -d "/") #remove / in front of input to perform numerical comparison
 
 	if [ $input -ge 0 ] && [ $input -le 59 ]
 	then
-	    minutes="$min"
+	    minutes="*$min"
 	    echo "The cronjob is scheduled every $minutes minutes."
 	    break
 	else
@@ -163,6 +163,7 @@ do
 
 done
 
+#write inserted job to crontab
 job_format="$minutes $hour $day_of_month $month_of_year $day_of_week $job_input"
 (crontab -l ; echo "$job_format")| crontab -
 
