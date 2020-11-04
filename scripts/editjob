@@ -22,6 +22,7 @@ file=$(crontab -l)
 
 if [ $(crontab -l | grep -cv "^#") -eq 0 ]
 then
+	echo "No jobs available for $USER"
 	source `pwd`"/exit"
 else
         crontab -l | grep -v "^#"
