@@ -56,11 +56,11 @@ Please select an option from the menu:
  
  Enter choice [1 | 2 | 3 | 4 | 5 | 6 | 0]: "
  read numchoice
- if [ -z "$numchoice" ]
+ if [ -z "$numchoice" ] #empty input for error handling
   then
     menu
   fi
- case $numchoice in
+ case $numchoice in  #case statment for error handling
      "1" ) source $display_job_wd
            break;;
      "2" ) source $insert_job_wd
@@ -80,3 +80,4 @@ done
 } 
 
 menu
+  
