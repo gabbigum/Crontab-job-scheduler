@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#title                    :displayjobs.sh
+#title                    :displayjob.sh
 #description              :This script is for displaying crontab jobs
 #author		          :Markus Meresma (40439107)
 #date                     :2020.11.05
